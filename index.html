@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Folders</title>
+    <link rel="stylesheet" href="style.css" />
+    
+  </head>
+  <body>
+    <div id="sideMenu">
+      <div id="active-cams-list">
+        <p class="title">Current Camera's</p>
+        <ul id="current-pages"></ul>
+      </div>
+      <ul id="folders">
+        <p class="title">Folders</p>
+        <li class="folder" onclick="toggleFolder(this)">
+          <span class="hover"><i id="folder1" class="fa-solid fa-folder"></i> Location 1</span>
+          <ul class="pages">
+            <li class="page draggable cam hover" draggable="true"><i class="fa-solid fa-video"></i> Room 1</li>
+            <li class="page draggable cam hover" draggable="true"><i class="fa-solid fa-video"></i> Room 2</li>
+          </ul>
+        </li>
+        <li class="folder" onclick="toggleFolder(this)">
+          <span class="hover"><i id="folder2" class="fa-solid fa-folder"></i> Location 2</span>
+          <ul class="pages">
+            <li class="page draggable cam hover" draggable="true"><i class="fa-solid fa-video"></i> Room 3</li>
+            <li class="page draggable cam hover" draggable="true"><i class="fa-solid fa-video"></i> Room 4</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div id="mainContent">
+      <div
+        id="dropZone"
+        class="drag-container"
+        ondrop="drop(event)"
+        ondragover="allowDrop(event)"
+      ></div>
+    </div>
+    <script src="main.js"></script>
+    <script src="https://kit.fontawesome.com/059a8cc006.js" crossorigin="anonymous"></script>
+  </body>
+</html>

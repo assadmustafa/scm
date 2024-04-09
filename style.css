@@ -1,0 +1,125 @@
+body {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+}
+
+#sideMenu {
+  width: 400px;
+  height: 100vh;
+  background-color: darkolivegreen;
+  color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+#active-cams-list {
+  background-color: white;
+  min-height: 300px;
+  color: black;
+  border-bottom: lightgray ridge 2px;
+  border-left: lightgray ridge 2px;
+  border-right: lightgray ridge 2px;
+}
+
+#folders {
+  min-height: 400px;
+  background-color: white;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: black;
+  border-bottom: lightgray ridge 2px;
+  border-left: lightgray ridge 2px;
+  border-right: lightgray ridge 2px;
+}
+
+.title {
+  text-align: center;
+  background-color: black;
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-top: lightgray ridge 2px;
+  border-bottom: lightgray ridge 2px;
+}
+
+.page {
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+#mainContent {
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.drag-container {
+  width: 85%;
+  height: 90%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+}
+
+.dropped-page {
+  width: 30%;
+  height: 30%;
+  background-color: darkgreen;
+  border: darkolivegreen 4px ridge;
+  color: #fff;
+  padding: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  float: left;
+}
+
+li {
+  list-style: none;
+  user-select: none;
+  padding-left: 16px;
+}
+
+.folder {
+  cursor: pointer;
+  user-select: none;
+}
+
+.folder .pages {
+  display: none;
+}
+
+.folder.open .pages {
+  display: block;
+  list-style: none;
+}
+
+.folder span {
+  width: 100%;
+  float: left;
+  padding-bottom: 10px;
+  font-weight: bold;
+}
+
+#current-pages {
+  padding-left: 16px;
+}
+
+.cam {
+  padding-left: 0;
+}
+
+.hover:hover {
+  color: green;
+  text-decoration: underline;
+}
+
+#active-cams-list li {
+  padding-bottom: 5px;
+}
