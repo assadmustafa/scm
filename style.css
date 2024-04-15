@@ -54,7 +54,7 @@ body {
 
 #mainContent {
   flex: 1;
-  padding: 20px;
+  padding: 30px;
   box-sizing: border-box;
 }
 
@@ -68,16 +68,16 @@ body {
   position: absolute;
 }
 
-.dropped-page {
-  width: 30%;
-  height: 30%;
+.camera {
+  width: 345px;
+  height: 233px;
   background-color: darkgreen;
   border: darkolivegreen 4px ridge;
   color: #fff;
-  padding: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
   float: left;
+  position: relative;
 }
 
 li {
@@ -122,4 +122,61 @@ li {
 
 #active-cams-list li {
   padding-bottom: 5px;
+}
+
+.green { 
+  color: green;
+}
+
+.btn {
+  color: red; 
+  margin-left:10px;
+  cursor: pointer;
+}
+
+.name {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+  font-size: 18px;
+  color: red;
+  background-color: black;
+  padding: 2px;
+}
+
+.settings {
+  text-align: center;
+  background-color: black;
+  padding-bottom: 16px;
+  border-bottom: lightgray ridge 2px;
+  border-left: lightgray ridge 2px;
+  border-right: lightgray ridge 2px;
+}
+
+.setting{
+  padding: 16px;
+  margin-right: 16px;
+  border: lightgray ridge 2px;
+  cursor: pointer;
+}
+
+.setting-full:active {
+  background-color: blue;
+  color: white;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.setting-clear:active {
+  background-color: #3e8e41;
+  color: white;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.setting-power:active {
+  background-color: red;
+  color: white;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }
