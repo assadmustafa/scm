@@ -7,34 +7,38 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    
     <div id="sideMenu">
+      <div class="settings">
+        <p class="title">Settings</p>
+        <button title="Full Screen" onclick="toggleFullScreenButton()" class="setting setting-full"><i class="fa-solid fa-expand fa-2xl"></i></button>
+        <button title="Clear" onclick="deleteAllCameras()" class="setting setting-clear"><i class="fa-solid fa-broom fa-2xl"></i></button>
+        <button title="Exit" onclick="turnOff()" class="setting setting-power"><i class="fa-solid fa-power-off fa-2xl"></i></button>
+      </div>
+      <br>
       <div id="active-cams-list">
         <p class="title">Current Camera's</p>
         <ul id="current-pages"></ul>
       </div>
+      <br>
       <ul id="folders">
         <p class="title">Folders</p>
         <li class="folder" onclick="toggleFolder(this)">
-          <span class="hover"><i id="folder1" class="fa-solid fa-folder"></i> Location 1</span>
+          <span class="hover"><i id="folder1" class="fa-solid fa-folder file"></i> Location 1</span>
           <ul class="pages">
             <li class="page draggable cam hover" draggable="true"><i class="fa-solid fa-video"></i> Room 1</li>
             <li class="page draggable cam hover" draggable="true"><i class="fa-solid fa-video"></i> Room 2</li>
           </ul>
         </li>
         <li class="folder" onclick="toggleFolder(this)">
-          <span class="hover"><i id="folder2" class="fa-solid fa-folder"></i> Location 2</span>
+          <span class="hover"><i id="folder2" class="fa-solid fa-folder file"></i> Location 2</span>
           <ul class="pages">
             <li class="page draggable cam hover" draggable="true"><i class="fa-solid fa-video"></i> Room 3</li>
             <li class="page draggable cam hover" draggable="true"><i class="fa-solid fa-video"></i> Room 4</li>
           </ul>
         </li>
       </ul>
-      <div class="settings">
-        <p class="title">Settings</p>
-        <button class="setting setting-full"><i class="fa-solid fa-expand fa-2xl"></i></button>
-        <button class="setting setting-clear"><i class="fa-solid fa-broom fa-2xl"></i></button>
-        <button class="setting setting-power"><i class="fa-solid fa-power-off fa-2xl"></i></button>
-      </div>
+      
     </div>
 
     <div id="mainContent">

@@ -1,5 +1,20 @@
+* {
+  background-color: #fff;
+  font-family: 'Tahoma', sans-serif;
+  --azul-janela: #0055ea;
+  --azul: #225ad9;
+  --azul-claro: #3980f4;
+  --azul-notification: #1188e5;
+  --bege: #ece9d8;
+}
+
+@font-face {
+  font-family: 'Tahoma';
+  src: url('assets/fonts/tahoma.ttf') format('truetype');
+}
+
 body {
-  font-family: "Arial", sans-serif;
+  font-family:'Times New Roman', Times, serif;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -9,7 +24,7 @@ body {
 #sideMenu {
   width: 400px;
   height: 100vh;
-  background-color: darkolivegreen;
+  background-color: var(--azul-notification);;
   color: #fff;
   padding: 20px;
   box-sizing: border-box;
@@ -18,11 +33,17 @@ body {
 
 #active-cams-list {
   background-color: white;
-  min-height: 300px;
+  height: 300px;
   color: black;
-  border-bottom: lightgray ridge 2px;
-  border-left: lightgray ridge 2px;
-  border-right: lightgray ridge 2px;
+  border-bottom: 3px solid var(--azul-janela);
+  border-left: 3px solid var(--azul-janela);
+  border-right: 3px solid var(--azul-janela);
+  overflow-y: auto;
+  margin-top: 0; /* Reset margin */
+  padding-top: 0; /* Reset padding */
+  /* Styling the scrollbar */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: green black; /* For Firefox */
 }
 
 #folders {
@@ -32,30 +53,33 @@ body {
   padding: 0;
   margin: 0;
   color: black;
-  border-bottom: lightgray ridge 2px;
-  border-left: lightgray ridge 2px;
-  border-right: lightgray ridge 2px;
+  border-bottom: 3px solid var(--azul-janela);
+  border-left: 3px solid var(--azul-janela);
+  border-right: 3px solid var(--azul-janela);
 }
 
 .title {
   text-align: center;
-  background-color: black;
+  background: linear-gradient(180deg, var(--azul-janela), var(--azul-claro));
   color: white;
   padding-top: 10px;
   padding-bottom: 10px;
-  border-top: lightgray ridge 2px;
-  border-bottom: lightgray ridge 2px;
+  border-top: 3px solid var(--azul-janela);
+  margin-top: 0;
 }
 
 .page {
   cursor: pointer;
   margin-bottom: 10px;
+  
 }
 
 #mainContent {
   flex: 1;
   padding: 30px;
   box-sizing: border-box;
+  float: left;
+  
 }
 
 .drag-container {
@@ -71,8 +95,7 @@ body {
 .camera {
   width: 345px;
   height: 233px;
-  background-color: darkgreen;
-  border: darkolivegreen 4px ridge;
+  border: 3px solid var(--azul-janela);
   color: #fff;
   margin-right: 10px;
   margin-bottom: 10px;
@@ -104,7 +127,6 @@ li {
   width: 100%;
   float: left;
   padding-bottom: 10px;
-  font-weight: bold;
 }
 
 #current-pages {
@@ -115,8 +137,13 @@ li {
   padding-left: 0;
 }
 
+#folder1, #folder2 {
+  color: #F8D775;
+}
+
+
 .hover:hover {
-  color: green;
+  color: var(--azul-janela);
   text-decoration: underline;
 }
 
@@ -136,28 +163,50 @@ li {
 
 .name {
   position: absolute;
-  bottom: 8px;
-  left: 16px;
-  font-size: 18px;
-  color: red;
-  background-color: black;
-  padding: 2px;
+  font-size: 14px;
+  color: white;
+  background: linear-gradient(180deg, var(--azul-janela), var(--azul-claro));
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: 97%;
+  border-right: 3px solid var(--azul-janela);
 }
 
 .settings {
   text-align: center;
-  background-color: black;
   padding-bottom: 16px;
-  border-bottom: lightgray ridge 2px;
-  border-left: lightgray ridge 2px;
-  border-right: lightgray ridge 2px;
+  border-bottom: 3px solid var(--azul-janela);
+  border-left: 3px solid var(--azul-janela);
+  border-right: 3px solid var(--azul-janela);
+  background-color: var(--bege);;
 }
+
+
 
 .setting{
   padding: 16px;
   margin-right: 16px;
   border: lightgray ridge 2px;
   cursor: pointer;
+  background-color: transparent;
+  border-radius: 10%;
+}
+
+.setting i {
+  background-color: transparent;
+}
+
+.setting-full {
+  background: linear-gradient(180deg, var(--azul-janela), #fff);
+}
+
+.setting-clear {
+  background: linear-gradient(180deg, #3e8e41, #fff);
+}
+
+.setting-power {
+  background: linear-gradient(180deg, red, #fff);
 }
 
 .setting-full:active {
