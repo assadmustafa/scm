@@ -21,6 +21,32 @@ body {
   display: flex;
 }
 
+.bar {
+  width: 100%;
+  position: absolute;
+  background-color: var(--bege);
+  border: 1px solid #75747184;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.bar ul{
+  margin-top: 0;
+  padding-left: 16px;
+  font-size: 14px;
+}
+
+.bar li{
+  float: left;
+  padding-right: 16px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.bar li:hover{
+  text-decoration: underline;
+}
+
 #sideMenu {
   width: 400px;
   height: 100vh;
@@ -29,6 +55,7 @@ body {
   padding: 20px;
   box-sizing: border-box;
   overflow-y: auto;
+  margin-top: 15px;
 }
 
 #active-cams-list {
@@ -42,11 +69,9 @@ body {
   padding-top: 0; /* Reset padding */
   /* Styling the scrollbar */
   scrollbar-width: thin; /* For Firefox */
-  scrollbar-color: green black; /* For Firefox */
+  scrollbar-color: lightblue white; /* For Firefox */
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-
-
 
 #folders {
   min-height: 400px;
@@ -58,6 +83,10 @@ body {
   border: 3px solid var(--azul-janela);
   border-radius: 3px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+#folders li {
+  padding-left: 16px;
 }
 
 .title {
@@ -77,6 +106,7 @@ body {
 #mainContent {
   flex: 1;
   padding: 30px;
+  padding-top: 35px;
   box-sizing: border-box;
   float: left;
 }
@@ -106,7 +136,6 @@ body {
 li {
   list-style: none;
   user-select: none;
-  padding-left: 16px;
 }
 
 .folder {
