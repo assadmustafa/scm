@@ -35,9 +35,8 @@ body {
   background-color: white;
   height: 300px;
   color: black;
-  border-bottom: 3px solid var(--azul-janela);
-  border-left: 3px solid var(--azul-janela);
-  border-right: 3px solid var(--azul-janela);
+  border: 3px solid var(--azul-janela);
+  border-radius: 3px;
   overflow-y: auto;
   margin-top: 0; /* Reset margin */
   padding-top: 0; /* Reset padding */
@@ -53,9 +52,8 @@ body {
   padding: 0;
   margin: 0;
   color: black;
-  border-bottom: 3px solid var(--azul-janela);
-  border-left: 3px solid var(--azul-janela);
-  border-right: 3px solid var(--azul-janela);
+  border: 3px solid var(--azul-janela);
+  border-radius: 3px;
 }
 
 .title {
@@ -64,7 +62,6 @@ body {
   color: white;
   padding-top: 5px;
   padding-bottom: 10px;
-  border-top: 3px solid var(--azul-janela);
   margin-top: 0;
 }
 
@@ -177,7 +174,7 @@ li {
   text-align: center;
   padding-bottom: 16px;
   border: 3px solid var(--azul-janela);
-  border-radius: 7px;
+  border-radius: 3px;
   background-color: var(--bege);
 }
 
@@ -207,14 +204,13 @@ li {
 }
 
 .setting-full:active {
-  background-color: blue;
   color: white;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
 
-.setting-full:hover {
-  box-shadow: 0px 0px 10px blue;
+.setting-full:hover, .setting-clear:hover, .setting-power:hover{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .setting-clear:active {
@@ -224,17 +220,9 @@ li {
   transform: translateY(4px);
 }
 
-.setting-clear:hover {
-  box-shadow: 0px 0px 10px green;
-}
-
 .setting-power:active {
   background-color: red;
   color: white;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
-}
-
-.setting-power:hover {
-  box-shadow: 0px 0px 10px red;
 }
