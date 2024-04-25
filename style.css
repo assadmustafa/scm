@@ -43,7 +43,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: '/images/screen.png';
+  background-image: '/assets/images/screen.png';
   z-index: 9999;
   display: flex;
   justify-content: center;

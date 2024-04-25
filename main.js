@@ -25,13 +25,13 @@ function showTurnOffWindow() {
   turnOffBoxTitle.className = "warning-title";
   turnOffBoxTitle.textContent = "Turn Off";
   const windowCloseButton = document.createElement("img");
-  windowCloseButton.src = "/images/close.png";
+  windowCloseButton.src = "/assets/images/close.png";
   windowCloseButton.className = "error-close-button";
   windowCloseButton.addEventListener("click", () => {
     turnOffBox.remove();
   });
   const warningImage = document.createElement("img");
-  warningImage.src = "/images/warning.png";
+  warningImage.src = "/assets/images/warning.png";
   warningImage.className = "warning-image";
   const warningMessage = document.createElement("p");
   warningMessage.textContent = "Are you sure you want to exit?";
@@ -78,13 +78,13 @@ function showError(title, message) {
   errorTitle.className = "error-title";
   errorTitle.textContent = title;
   const windowCloseButton = document.createElement("img");
-  windowCloseButton.src = "/images/close.png";
+  windowCloseButton.src = "/assets/images/close.png";
   windowCloseButton.className = "error-close-button";
   windowCloseButton.addEventListener("click", () => {
     errorBox.remove();
   });
   const errorImage = document.createElement("img");
-  errorImage.src = "/images/error.png";
+  errorImage.src = "/assets/images/error.png";
   errorImage.className = "error-image";
   const errorMessage = document.createElement("p");
   errorMessage.textContent = message;
@@ -207,7 +207,7 @@ function dropScreen(event) {
   icon.className = "fa-solid fa-video";
   windowCloseButton.className = "fa-solid fa-square-xmark";
   windowFullButton.className = "fa-solid fa-window-restore";
-  screen.src = "/images/screen.png";
+  screen.src = "/assets/images/screen.png";
 
   icon.style = "color: green;";
   windowCloseButton.style =
@@ -291,7 +291,7 @@ savedCameras.forEach((camera) => {
   windowFullButton.style =
     "color: white; background-color:transparent; position:absolute; margin-left:-45px; margin-top:8px; padding-right:1px; padding-left:1px; border-radius:3px;";
   windowFullButton.style.cursor = "pointer";
-  photo.src = "/images/screen.png";
+  photo.src = "/assets/images/screen.png";
   photo.className = "photo";
   heading.className = "heading";
   item.textContent = heading.innerText = camera;
@@ -342,7 +342,7 @@ function addScreen(pageContent) {
   icon.className = "fa-solid fa-video";
   windowCloseButton.className = "fa-solid fa-square-xmark";
   windowFullButton.className = "fa-solid fa-window-restore";
-  screen.src = "/images/screen.png";
+  screen.src = "/assets/images/screen.png";
   icon.style = "color: green;";
   windowCloseButton.style =
     "color: red; position:absolute; margin-left:-20px; margin-top:8px; padding-right:1px; padding-left:1px; border-radius:3px;";
