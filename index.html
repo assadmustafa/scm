@@ -7,13 +7,8 @@
     <link rel="stylesheet" href="assets/styles/style.css" />
   </head>
   <body>
-    <div class="overlay" id="overlay" style="display: none;">
-      <img src="/assets/images/windows.png" class="windows"/>
-      <img src="/assets/images/background.png" class="background"/>
-      <div class="message">
-        <p>Shuting down</p>
-      </div>
-    </div>
+    
+    <!-- Toolbar -->
     <div class="toolbar">
       <ul>
         <li>Menu</li>
@@ -22,6 +17,8 @@
         <li style="float: right;">login</li>
       </ul>
     </div>
+
+    <!-- Side Menu -->
     <div id="sideMenu">
       <div class="settings">
         <p class="title">Settings</p>
@@ -52,9 +49,9 @@
           </ul>
         </li>
       </ul>
-      
     </div>
 
+    <!-- Main Content -->
     <div id="mainContent">
       <div
         id="dropZone"
@@ -62,6 +59,15 @@
         ondrop="dropScreen(event)"
         ondragover="allowDropScreen(event)"
       ></div>
+    </div>
+
+    <!-- Shut Down Screen -->
+    <div class="overlay" id="overlay" style="display: none;">
+      <img src="/assets/images/windows.png" class="windows"/>
+      <img src="/assets/images/background.png" class="background"/>
+      <div class="message">
+        <p>Shuting down</p>
+      </div>
     </div>
 
     <script src="assets/scripts/main.js"></script>
