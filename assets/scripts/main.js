@@ -19,8 +19,56 @@ const errorSound = new Audio("/assets/sounds/error.mp3");
 // Screen Element
 var elem = document.body;
 
-// Show Turn Off Warning Window Function
-function showWarningWindow(title,message) {
+
+// Switch To Fullscreen Function
+function toggleFullScreen() {
+  clickSound.play();
+  if (
+    !document.fullscreenElement && // alternative standard method
+    !document.mozFullScreenElement &&
+    !document.webkitFullscreenElement &&
+    !document.msFullscreenElement
+  ) {
+    // current working methods
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+      elem.msRequestFullscreen();
+    } else if (elem.mozRequestFullScreen) {
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+    }
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
+}
+
+// Clear All Cameras Function
+function clearCameras() {
+  clearSound.play();
+  const cameras = document.querySelectorAll(".screen-container");
+  cameras.forEach((camera) => {
+    camera.remove();
+  });
+  const listItems = document.querySelectorAll("#active-cameras li");
+  listItems.forEach((item) => {
+    item.remove();
+  });
+  // Clear the localStorage as well
+  localStorage.removeItem("cameras");
+}
+
+// Exit The Application Function
+function turnOff() {
   const warningWindow = document.createElement("div");
   const warningWindowTitle = document.createElement("div");
   const warningWindowCloseButton = document.createElement("img");
@@ -32,7 +80,7 @@ function showWarningWindow(title,message) {
   warningWindow.className = "window";
   
   warningWindowTitle.className = "window-title";
-  warningWindowTitle.textContent = title;
+  warningWindowTitle.textContent = "Turn Off";
   
   warningWindowCloseButton.src = "/assets/images/close.png";
   warningWindowCloseButton.className = "window-close-button";
@@ -43,7 +91,7 @@ function showWarningWindow(title,message) {
   warningImage.src = "/assets/images/warning.png";
   warningImage.className = "warning-image window-image";
   
-  warningMessage.textContent = message;
+  warningMessage.textContent = "Are you sure you want to exit?";
   
   warningConfirmButton.textContent = "Yes";
   warningConfirmButton.className = "warning-confirm-button btn";
@@ -80,115 +128,6 @@ function showWarningWindow(title,message) {
 
   // Adjust scroll position to show error box if necessary
   mainContent.scrollTop = mainContent.scrollHeight;
-
-}
-
-// Show Error Window Function
-function showError(title, message) {
-  const errorWindow = document.createElement("div");
-  const errorWindowTitle = document.createElement("div");
-  const windowCloseButton = document.createElement("img");
-  const errorImage = document.createElement("img");
-  const errorMessage = document.createElement("p");
-  const closeButton = document.createElement("button");
-
-  errorWindow.className = "window";
-  
-  errorWindowTitle.className = "window-title";
-  errorWindowTitle.textContent = title;
-
-  windowCloseButton.src = "/assets/images/close.png";
-  windowCloseButton.className = "window-close-button";
-  windowCloseButton.addEventListener("click", () => {
-    errorWindow.remove();
-  });
-
-  errorImage.src = "/assets/images/error.png";
-  errorImage.className = "error-image window-image";
-
-  errorMessage.textContent = message;
-
-  closeButton.textContent = "OK";
-  closeButton.className = "error-window-ok-button btn";
-  closeButton.addEventListener("click", function () {
-    errorWindow.remove();
-  });
-
-  errorWindow.appendChild(errorWindowTitle);
-  errorWindow.appendChild(errorImage);
-  errorWindow.appendChild(errorMessage);
-  errorWindowTitle.appendChild(windowCloseButton);
-  errorWindow.appendChild(closeButton);
-  mainContent.appendChild(errorWindow);
-
-  // Play error sound
-  errorSound.play();
-
-  // Adjust scroll position to show error box if necessary
-  mainContent.scrollTop = mainContent.scrollHeight;
-
-}
-
-// Switch To Fullscreen Function
-function toggleFullScreen() {
-  clickSound.play();
-  if (
-    !document.fullscreenElement && // alternative standard method
-    !document.mozFullScreenElement &&
-    !document.webkitFullscreenElement &&
-    !document.msFullscreenElement
-  ) {
-    // current working methods
-    if (elem.requestFullscreen) {
-      elem.requestFullscreen();
-    } else if (elem.msRequestFullscreen) {
-      elem.msRequestFullscreen();
-    } else if (elem.mozRequestFullScreen) {
-      elem.mozRequestFullScreen();
-    } else if (elem.webkitRequestFullscreen) {
-      elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-    }
-  } else {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.msExitFullscreen) {
-      document.msExitFullscreen();
-    } else if (document.mozCancelFullScreen) {
-      document.mozCancelFullScreen();
-    } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
-    }
-  }
-}
-
-// Clear All Cameras Function
-function deleteAllCameras() {
-  clearSound.play();
-  const cameras = document.querySelectorAll(".screen-container");
-  cameras.forEach((camera) => {
-    camera.remove();
-  });
-  const listItems = document.querySelectorAll("#active-cameras li");
-  listItems.forEach((item) => {
-    item.remove();
-  });
-  // Clear the localStorage as well
-  localStorage.removeItem("cameras");
-}
-
-// Exit The Application Function
-function turnOff() {
-  // Display a confirmation dialog
-  //var confirmed = confirm("Are you sure you want to exit?");
-  showWarningWindow("Turn Off","Are you sure you want to exit?");
-}
-
-// Save Current Displayed Cameras To Local Storage Function
-function saveCamerasToLocalStorage() {
-  const cameras = Array.from(
-    mainContent.querySelectorAll(".screen-container")
-  ).map((page) => page.textContent);
-  localStorage.setItem("cameras", JSON.stringify(cameras));
 }
 
 // Make Screens Droppable
@@ -201,7 +140,7 @@ function toggleFolder(folder) {
   folder.classList.toggle("open");
 }
 
-// Drop Screen Function
+// Drop Screen By Drag/Drop Function
 function dropScreen(event) {
   event.preventDefault();
   const pageContent = event.dataTransfer.getData("text");
@@ -265,70 +204,14 @@ function dropScreen(event) {
   saveCamerasToLocalStorage();
 }
 
-// Add Event Listener For Drag/Drop Any Screen
+// Add Event Listener For Drag/Drop
 pages.forEach((page) => {
   page.addEventListener("dragstart", function (event) {
     event.dataTransfer.setData("text/plain", page.textContent);
   });
 });
 
-// Add Event Listener For Every Page To Place Screens
-pages.forEach((page) => {
-  page.addEventListener("click", function (event) {
-    const pageContent = page.textContent;
-    addScreen(pageContent);
-    event.stopPropagation(); // Stop the event from bubbling up
-  });
-});
-
-// Restore Previous Session Screens On Page Load
-savedCameras.forEach((camera) => {
-  const page = document.createElement("div");
-  const heading = document.createElement("div");
-  const icon = document.createElement("i");
-  const windowCloseButton = document.createElement("i");
-  const windowFullScreenButton = document.createElement("i");
-  const item = document.createElement("li");
-  const photo = document.createElement("img");
-  page.className = "screen-container";
-  icon.className = "fa-solid fa-video active-camera-icon";
-  windowCloseButton.className = "fa-solid fa-square-xmark screen-close-button";
-  windowFullScreenButton.className = "fa-solid fa-window-restore window-fullscreen-button";
-  photo.src = "/assets/images/screen.png";
-  photo.className = "photo";
-  heading.className = "heading";
-  item.textContent = heading.innerText = camera;
-  item.insertBefore(icon, item.firstChild);
-  list.appendChild(item);
-  page.appendChild(heading);
-  page.appendChild(photo);
-  page.appendChild(windowFullScreenButton);
-  page.appendChild(windowCloseButton);
-  mainContent.appendChild(page);
-  windowCloseButton.addEventListener("click", () => {
-    page.remove();
-    list.removeChild(item);
-    saveCamerasToLocalStorage(); // Update local storage after removing
-  });
-  windowFullScreenButton.addEventListener("click", () => {
-    if (page.classList.contains("fullScreen")) {
-      page.classList.remove("fullScreen");
-      page.style = ""; // Remove inline styles
-      photo.style = ""; // Remove inline styles
-      heading.style = ""; // Remove inline styles
-      dropZone.style = ""; // Remove inline styles
-    } else {
-      page.classList.add("fullScreen");
-      page.style =
-        "width:1300px;height:873px;margin-left: 100px; position:absolute; z-index:20;";
-      photo.style = "width: 100%;";
-      heading.style = "width: 98.7%;";
-      dropZone.style = "background-color:white; z-index:19;";
-    }
-  });
-});
-
-// Add A Screen View When Click On A Screen Item From The Side Menu
+// Add A Screen By Click Function
 function addScreen(pageContent) {
   if (mainContent.childElementCount > 12) {
     showError("Error", "Maximum limit has been reached!");
@@ -380,3 +263,113 @@ function addScreen(pageContent) {
   });
   saveCamerasToLocalStorage();
 }
+
+// Add Event Listener For Click
+pages.forEach((page) => {
+  page.addEventListener("click", function (event) {
+    const pageContent = page.textContent;
+    addScreen(pageContent);
+    event.stopPropagation(); // Stop the event from bubbling up
+  });
+});
+
+// Show Error Window Function
+function showError(title, message) {
+  const errorWindow = document.createElement("div");
+  const errorWindowTitle = document.createElement("div");
+  const windowCloseButton = document.createElement("img");
+  const errorImage = document.createElement("img");
+  const errorMessage = document.createElement("p");
+  const closeButton = document.createElement("button");
+
+  errorWindow.className = "window";
+  
+  errorWindowTitle.className = "window-title";
+  errorWindowTitle.textContent = title;
+
+  windowCloseButton.src = "/assets/images/close.png";
+  windowCloseButton.className = "window-close-button";
+  windowCloseButton.addEventListener("click", () => {
+    errorWindow.remove();
+  });
+
+  errorImage.src = "/assets/images/error.png";
+  errorImage.className = "error-image window-image";
+
+  errorMessage.textContent = message;
+
+  closeButton.textContent = "OK";
+  closeButton.className = "error-window-ok-button btn";
+  closeButton.addEventListener("click", function () {
+    errorWindow.remove();
+  });
+
+  errorWindow.appendChild(errorWindowTitle);
+  errorWindow.appendChild(errorImage);
+  errorWindow.appendChild(errorMessage);
+  errorWindowTitle.appendChild(windowCloseButton);
+  errorWindow.appendChild(closeButton);
+  mainContent.appendChild(errorWindow);
+
+  // Play error sound
+  errorSound.play();
+
+  // Adjust scroll position to show error box if necessary
+  mainContent.scrollTop = mainContent.scrollHeight;
+
+}
+
+// Save Current Displayed Cameras To Local Storage Function
+function saveCamerasToLocalStorage() {
+  const cameras = Array.from(
+    mainContent.querySelectorAll(".screen-container")
+  ).map((page) => page.textContent);
+  localStorage.setItem("cameras", JSON.stringify(cameras));
+}
+
+// Restore Previous Session Screens On Page Load
+savedCameras.forEach((camera) => {
+  const page = document.createElement("div");
+  const heading = document.createElement("div");
+  const icon = document.createElement("i");
+  const windowCloseButton = document.createElement("i");
+  const windowFullScreenButton = document.createElement("i");
+  const item = document.createElement("li");
+  const photo = document.createElement("img");
+  page.className = "screen-container";
+  icon.className = "fa-solid fa-video active-camera-icon";
+  windowCloseButton.className = "fa-solid fa-square-xmark screen-close-button";
+  windowFullScreenButton.className = "fa-solid fa-window-restore window-fullscreen-button";
+  photo.src = "/assets/images/screen.png";
+  photo.className = "photo";
+  heading.className = "heading";
+  item.textContent = heading.innerText = camera;
+  item.insertBefore(icon, item.firstChild);
+  list.appendChild(item);
+  page.appendChild(heading);
+  page.appendChild(photo);
+  page.appendChild(windowFullScreenButton);
+  page.appendChild(windowCloseButton);
+  mainContent.appendChild(page);
+  windowCloseButton.addEventListener("click", () => {
+    page.remove();
+    list.removeChild(item);
+    saveCamerasToLocalStorage(); // Update local storage after removing
+  });
+  windowFullScreenButton.addEventListener("click", () => {
+    if (page.classList.contains("fullScreen")) {
+      page.classList.remove("fullScreen");
+      page.style = ""; // Remove inline styles
+      photo.style = ""; // Remove inline styles
+      heading.style = ""; // Remove inline styles
+      dropZone.style = ""; // Remove inline styles
+    } else {
+      page.classList.add("fullScreen");
+      page.style =
+        "width:1300px;height:873px;margin-left: 100px; position:absolute; z-index:20;";
+      photo.style = "width: 100%;";
+      heading.style = "width: 98.7%;";
+      dropZone.style = "background-color:white; z-index:19;";
+    }
+  });
+});
