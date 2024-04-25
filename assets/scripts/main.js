@@ -140,12 +140,12 @@ function toggleFolder(folder) {
   folder.classList.toggle("open");
 }
 
-// Drop Screen By Drag/Drop Function
+// Add Screen By Drag/Drop Function
 function dropScreen(event) {
   event.preventDefault();
   const pageContent = event.dataTransfer.getData("text");
 
-  if (mainContent.childElementCount > 12) {
+  if (mainContent.childElementCount > 9) {
     // Display Error Window
     showError("Error", "Maximum limit has been reached!");
     return;
@@ -156,15 +156,19 @@ function dropScreen(event) {
   const icon = document.createElement("i");
   const windowCloseButton = document.createElement("i");
   const windowFullScreenButton = document.createElement("i");
-  const screen = document.createElement("img");
+  const screen = document.createElement("video");
   const item = document.createElement("li");
+  const randomCameraNumber = Math.floor(Math.random() * 4) + 1;
 
   page.className = "screen-container";
   icon.className = "fa-solid fa-video active-camera-icon";
   windowCloseButton.className = "fa-solid fa-square-xmark screen-close-button";
-  windowFullScreenButton.className = "fa-solid fa-window-restore window-fullscreen-button";
-  screen.src = "/assets/images/screen.png";
-
+  windowFullScreenButton.className = "fa-solid fa-window-restore screen-fullscreen-button";
+  screen.src = `/assets/cameras/camera${randomCameraNumber}.mp4`;
+  screen.autoplay = true;
+  screen.loop = true; // Set loop
+  screen.muted = true; // Add this line if necessary
+  screen.controls = false; // Add this line if controls are not needed
   heading.className = "heading";
   screen.className = "screen";
 
@@ -187,17 +191,17 @@ function dropScreen(event) {
   windowFullScreenButton.addEventListener("click", () => {
     if (page.classList.contains("fullScreen")) {
       page.classList.remove("fullScreen");
-      page.style = ""; // Remove inline styles
-      screen.style = ""; // Remove inline styles
-      heading.style = ""; // Remove inline styles
-      dropZone.style = ""; // Remove inline styles
+      page.style = "";
+      screen.style = "";
+      heading.style = "";
+      dropZone.style = "";
     } else {
       page.classList.add("fullScreen");
       page.style =
-        "width:1300px;height:873px;margin-left: 100px; position:absolute; z-index:20;";
-      screen.style = "width: 100%;";
-      heading.style = "width: 98.7%;";
-      dropZone.style = "background-color:white; z-index:19;";
+        "width:1450px;height:850px; position:absolute;z-index:4;";
+      screen.style = "width: 100%;height:900px;margin-top:0;border-bottom:0px;";
+      heading.style = "width: 100%;";
+      dropZone.style = "background-color:white; ";
     }
   });
 
@@ -211,9 +215,9 @@ pages.forEach((page) => {
   });
 });
 
-// Add A Screen By Click Function
+// Add Screen By Click Function
 function addScreen(pageContent) {
-  if (mainContent.childElementCount > 12) {
+  if (mainContent.childElementCount > 9) {
     showError("Error", "Maximum limit has been reached!");
     return;
   }
@@ -222,13 +226,18 @@ function addScreen(pageContent) {
   const icon = document.createElement("i");
   const windowCloseButton = document.createElement("i");
   const windowFullScreenButton = document.createElement("i");
-  const screen = document.createElement("img");
+  const screen = document.createElement("video");
   const item = document.createElement("li");
+  const randomCameraNumber = Math.floor(Math.random() * 4) + 1;
   page.className = "screen-container";
   icon.className = "fa-solid fa-video active-camera-icon";
   windowCloseButton.className = "fa-solid fa-square-xmark screen-close-button";
-  windowFullScreenButton.className = "fa-solid fa-window-restore window-fullscreen-button";
-  screen.src = "/assets/images/screen.png";
+  windowFullScreenButton.className = "fa-solid fa-window-restore screen-fullscreen-button";
+  screen.src = `/assets/cameras/camera${randomCameraNumber}.mp4`;
+  screen.autoplay = true;
+  screen.loop = true; // Set loop
+  screen.muted = true; // Add this line if necessary
+  screen.controls = false; // Add this line if controls are not needed
   heading.className = "heading";
   screen.className = "screen";
   item.textContent = heading.innerText = pageContent;
@@ -248,17 +257,17 @@ function addScreen(pageContent) {
   windowFullScreenButton.addEventListener("click", () => {
     if (page.classList.contains("fullScreen")) {
       page.classList.remove("fullScreen");
-      page.style = ""; // Remove inline styles
-      screen.style = ""; // Remove inline styles
-      heading.style = ""; // Remove inline styles
-      dropZone.style = ""; // Remove inline styles
+      page.style = "";
+      screen.style = "";
+      heading.style = "";
+      dropZone.style = "";
     } else {
       page.classList.add("fullScreen");
       page.style =
-        "width:1300px;height:873px;margin-left: 100px; position:absolute; z-index:20;";
-      screen.style = "width: 100%;";
-      heading.style = "width: 98.7%;";
-      dropZone.style = "background-color:white; z-index:19;";
+        "width:1450px;height:850px; position:absolute;z-index:4;";
+      screen.style = "width: 100%;height:900px;margin-top:0;border-bottom:0px;";
+      heading.style = "width: 100%;";
+      dropZone.style = "background-color:white; ";
     }
   });
   saveCamerasToLocalStorage();
@@ -335,19 +344,24 @@ savedCameras.forEach((camera) => {
   const windowCloseButton = document.createElement("i");
   const windowFullScreenButton = document.createElement("i");
   const item = document.createElement("li");
-  const photo = document.createElement("img");
+  const screen = document.createElement("video");
+  const randomCameraNumber = Math.floor(Math.random() * 4) + 1;
   page.className = "screen-container";
   icon.className = "fa-solid fa-video active-camera-icon";
   windowCloseButton.className = "fa-solid fa-square-xmark screen-close-button";
-  windowFullScreenButton.className = "fa-solid fa-window-restore window-fullscreen-button";
-  photo.src = "/assets/images/screen.png";
-  photo.className = "photo";
+  windowFullScreenButton.className = "fa-solid fa-window-restore screen-fullscreen-button";
+  screen.src = `/assets/cameras/camera${randomCameraNumber}.mp4`;
+  screen.className = "screen";
+  screen.autoplay = true;
+  screen.loop = true; // Set loop
+  screen.muted = true; // Add this line if necessary
+  screen.controls = false; // Add this line if controls are not needed
   heading.className = "heading";
   item.textContent = heading.innerText = camera;
   item.insertBefore(icon, item.firstChild);
   list.appendChild(item);
   page.appendChild(heading);
-  page.appendChild(photo);
+  page.appendChild(screen);
   page.appendChild(windowFullScreenButton);
   page.appendChild(windowCloseButton);
   mainContent.appendChild(page);
@@ -359,17 +373,17 @@ savedCameras.forEach((camera) => {
   windowFullScreenButton.addEventListener("click", () => {
     if (page.classList.contains("fullScreen")) {
       page.classList.remove("fullScreen");
-      page.style = ""; // Remove inline styles
-      photo.style = ""; // Remove inline styles
-      heading.style = ""; // Remove inline styles
-      dropZone.style = ""; // Remove inline styles
+      page.style = "";
+      screen.style = "";
+      heading.style = "";
+      dropZone.style = "";
     } else {
       page.classList.add("fullScreen");
       page.style =
-        "width:1300px;height:873px;margin-left: 100px; position:absolute; z-index:20;";
-      photo.style = "width: 100%;";
-      heading.style = "width: 98.7%;";
-      dropZone.style = "background-color:white; z-index:19;";
+        "width:1450px;height:850px; position:absolute;z-index:4;";
+      screen.style = "width: 100%;height:900px;margin-top:0;border-bottom:0px;";
+      heading.style = "width: 100%;";
+      dropZone.style = "background-color:white;";
     }
   });
 });
