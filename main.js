@@ -1,14 +1,23 @@
+// Overlay For Shut Down Screen
 const overlay = document.getElementById("overlay");
+// Main View
 const mainContent = document.getElementById("mainContent");
+// Drop Zone On The Page For Drag/Drop Cameras
 const dropZone = document.getElementById("dropZone");
+// Select All Monitors Query
 const pages = document.querySelectorAll(".page");
+// List Of Current Cameras Monitors
 const list = document.getElementById("current-pages");
+// Saved Cameras Array From Local Storage
 const savedCameras = JSON.parse(localStorage.getItem("cameras")) || [];
+// Click Button Sound Effect Audio
 const clickSound = new Audio('/assets/sounds/click.mp3');
+// Clear Button Sound Effect Audio
 const clearSound = new Audio('/assets/sounds/clear.mp3');
+// Screen Element
 var elem = document.body;
 
-// Turn Off Window
+// Show Turn Off Window Function
 function showTurnOffWindow() {
   const turnOffBox = document.createElement("div");
   turnOffBox.className = "windows-xp-error";
@@ -68,7 +77,7 @@ function showTurnOffWindow() {
   mainContent.scrollTop = mainContent.scrollHeight;
 }
 
-// Display Error Function
+// Display Error Function When Maximum Displayed Screens Limit Is Reached
 function showError(title,message) {
   const errorBox = document.createElement("div");
   errorBox.className = "windows-xp-error";
@@ -114,7 +123,7 @@ function showError(title,message) {
   mainContent.scrollTop = mainContent.scrollHeight;
 }
 
-// Request Function For Fullscreen Function
+// Request User Permission For Fullscreen Function
 function requestFullScreen(element) {
   if (
     !document.fullscreenElement && // alternative standard method
@@ -145,13 +154,13 @@ function requestFullScreen(element) {
   }
 }
 
-// Fullscreen Function
+// Switch To Fullscreen Function
 function toggleFullScreenButton() {
   clickSound.play();
   requestFullScreen(elem);
 }
 
-// Clear Function
+// Clear All Cameras Function
 function deleteAllCameras() {
   clearSound.play();
   const cameras = document.querySelectorAll(".camera");
@@ -168,14 +177,14 @@ function deleteAllCameras() {
   localStorage.removeItem("cameras");
 }
 
-// Exit Function
+// Exit The Application Function
 function turnOff() {
   // Display a confirmation dialog
   //var confirmed = confirm("Are you sure you want to exit?");
   showTurnOffWindow();
 }
 
-// Save data to local storage function
+// Save Current Displayed Cameras To Local Storage Function
 function saveCamerasToLocalStorage() {
   const cameras = Array.from(mainContent.querySelectorAll(".camera")).map(
     (page) => page.textContent
@@ -183,16 +192,18 @@ function saveCamerasToLocalStorage() {
   localStorage.setItem("cameras", JSON.stringify(cameras));
 }
 
-
-function allowDrop(event) {
+// Make Screens Droppable
+function allowDropScreen(event) {
   event.preventDefault();
 }
 
+// Open Folder Function
 function toggleFolder(folder) {
   folder.classList.toggle("open");
 }
 
-function drop(event) {
+// Drop Screen Function
+function dropScreen(event) {
   event.preventDefault();
   const pageContent = event.dataTransfer.getData("text");
 
@@ -261,23 +272,23 @@ function drop(event) {
   saveCamerasToLocalStorage();
 }
 
-// Add event listener for each dragged camera
+// Add Event Listener For Drag/Drop Any Screen
 pages.forEach((page) => {
   page.addEventListener("dragstart", function (event) {
     event.dataTransfer.setData("text/plain", page.textContent);
   });
 });
 
-// Add event listener for each page to create elements
+// Add Event Listener For Every Page To Place Screens
 pages.forEach((page) => {
   page.addEventListener("click", function (event) {
     const pageContent = page.textContent;
-    createPageElements(pageContent);
+    addScreen(pageContent);
     event.stopPropagation(); // Stop the event from bubbling up
   });
 });
 
-// Restore previous session cameras on page load
+// Restore Previous Session Screens On Page Load
 savedCameras.forEach((camera) => {
   const page = document.createElement("div");
   const name = document.createElement("div");
@@ -335,8 +346,8 @@ savedCameras.forEach((camera) => {
   
 });
 
-// Create Element when click on a camera item from the side menu
-function createPageElements(pageContent) {
+// Add A Screen View When Click On A Screen Item From The Side Menu
+function addScreen(pageContent) {
   if (mainContent.childElementCount > 12) {
     showError('Error','Maximum limit has been reached!')
     return;
