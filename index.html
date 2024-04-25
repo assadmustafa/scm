@@ -19,21 +19,21 @@
     </div>
 
     <!-- Side Menu -->
-    <div id="sideMenu">
+    <div id="side-menu">
       <div class="settings">
-        <p class="title">Settings</p>
-        <button title="Full Screen" onclick="toggleFullScreenButton()" class="setting setting-full"><i class="fa-solid fa-expand fa-2xl"></i></button>
+        <p class="side-menu-heading">Settings</p>
+        <button title="Full Screen" onclick="toggleFullScreen()" class="setting setting-full"><i class="fa-solid fa-expand fa-2xl"></i></button>
         <button title="Clear" onclick="deleteAllCameras()" class="setting setting-clear"><i class="fa-solid fa-broom fa-2xl"></i></button>
         <button title="Exit" onclick="turnOff()" class="setting setting-power"><i class="fa-solid fa-power-off fa-2xl"></i></button>
       </div>
       <br>
       <div id="active-cameras-container">
-        <p class="title">Active Camera's</p>
+        <p class="side-menu-heading">Active Camera's</p>
         <ul id="active-cameras"></ul>
       </div>
       <br>
       <ul id="folders">
-        <p class="title">Folders</p>
+        <p class="side-menu-heading">Folders</p>
         <li class="folder" onclick="toggleFolder(this)">
           <span><i id="folder1" class="fa-solid fa-folder file"></i> Location 1</span>
           <ul class="pages">
@@ -52,7 +52,7 @@
     </div>
 
     <!-- Main Content -->
-    <div id="mainContent">
+    <div id="main-content">
       <div
         id="dropZone"
         class="drag-container"

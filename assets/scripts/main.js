@@ -1,7 +1,7 @@
 // Overlay For Shut Down Screen
 const overlay = document.getElementById("overlay");
 // Main View
-const mainContent = document.getElementById("mainContent");
+const mainContent = document.getElementById("main-content");
 // Drop Zone On The Page For Drag/Drop Cameras
 const dropZone = document.getElementById("dropZone");
 // Select All Monitors Query
@@ -10,35 +10,44 @@ const pages = document.querySelectorAll(".page");
 const list = document.getElementById("active-cameras");
 // Saved Cameras Array From Local Storage
 const savedCameras = JSON.parse(localStorage.getItem("cameras")) || [];
-// Click Button Sound Effect Audio
+// Click Button Sound Effect
 const clickSound = new Audio("/assets/sounds/click.mp3");
-// Clear Button Sound Effect Audio
+// Clear Button Sound Effect
 const clearSound = new Audio("/assets/sounds/clear.mp3");
+// Error Sound Effect
+const errorSound = new Audio("/assets/sounds/error.mp3");
 // Screen Element
 var elem = document.body;
 
-// Show Turn Off Window Function
-function showTurnOffWindow() {
-  const turnOffBox = document.createElement("div");
-  turnOffBox.className = "error";
-  const turnOffBoxTitle = document.createElement("div");
-  turnOffBoxTitle.className = "warning-title";
-  turnOffBoxTitle.textContent = "Turn Off";
-  const windowCloseButton = document.createElement("img");
-  windowCloseButton.src = "/assets/images/close.png";
-  windowCloseButton.className = "error-close-button";
-  windowCloseButton.addEventListener("click", () => {
-    turnOffBox.remove();
-  });
+// Show Turn Off Warning Window Function
+function showWarningWindow(title,message) {
+  const warningWindow = document.createElement("div");
+  const warningWindowTitle = document.createElement("div");
+  const warningWindowCloseButton = document.createElement("img");
   const warningImage = document.createElement("img");
-  warningImage.src = "/assets/images/warning.png";
-  warningImage.className = "warning-image";
   const warningMessage = document.createElement("p");
-  warningMessage.textContent = "Are you sure you want to exit?";
-  const confirmButton = document.createElement("button");
-  confirmButton.textContent = "Yes";
-  confirmButton.className = "warning-button-confirm option";
-  confirmButton.addEventListener("click", function () {
+  const warningConfirmButton = document.createElement("button");
+  const warningCancelButton = document.createElement("button");
+
+  warningWindow.className = "window";
+  
+  warningWindowTitle.className = "window-title";
+  warningWindowTitle.textContent = title;
+  
+  warningWindowCloseButton.src = "/assets/images/close.png";
+  warningWindowCloseButton.className = "window-close-button";
+  warningWindowCloseButton.addEventListener("click", () => {
+    warningWindow.remove();
+  });
+  
+  warningImage.src = "/assets/images/warning.png";
+  warningImage.className = "warning-image window-image";
+  
+  warningMessage.textContent = message;
+  
+  warningConfirmButton.textContent = "Yes";
+  warningConfirmButton.className = "warning-confirm-button btn";
+  warningConfirmButton.addEventListener("click", function () {
     // Display shuting down message
     overlay.style.display = "block";
     // Play shut down sound
@@ -50,65 +59,79 @@ function showTurnOffWindow() {
       window.close();
     };
   });
-  const cancelButton = document.createElement("button");
-  cancelButton.textContent = "No";
-  cancelButton.className = "warning-button-cancel option";
-  cancelButton.addEventListener("click", function () {
-    turnOffBox.remove();
+  
+  warningCancelButton.textContent = "No";
+  warningCancelButton.className = "warning-cancel-button btn";
+  warningCancelButton.addEventListener("click", function () {
+    warningWindow.remove();
   });
-  turnOffBox.appendChild(turnOffBoxTitle);
-  turnOffBox.appendChild(warningImage);
-  turnOffBox.appendChild(warningMessage);
-  turnOffBoxTitle.appendChild(windowCloseButton);
-  turnOffBox.appendChild(confirmButton);
-  turnOffBox.appendChild(cancelButton);
-  mainContent.appendChild(turnOffBox);
+
+  warningWindow.appendChild(warningWindowTitle);
+  warningWindow.appendChild(warningImage);
+  warningWindow.appendChild(warningMessage);
+  warningWindowTitle.appendChild(warningWindowCloseButton);
+  warningWindow.appendChild(warningConfirmButton);
+  warningWindow.appendChild(warningCancelButton);
+  mainContent.appendChild(warningWindow);
+
   // Play error sound
   const warningSound = new Audio("/assets/sounds/notification.mp3");
   warningSound.play();
+
   // Adjust scroll position to show error box if necessary
   mainContent.scrollTop = mainContent.scrollHeight;
+
 }
 
-// Display Error Function When Maximum Displayed Screens Limit Is Reached
+// Show Error Window Function
 function showError(title, message) {
-  const errorBox = document.createElement("div");
-  errorBox.className = "error";
-  const errorTitle = document.createElement("div");
-  errorTitle.className = "error-title";
-  errorTitle.textContent = title;
+  const errorWindow = document.createElement("div");
+  const errorWindowTitle = document.createElement("div");
   const windowCloseButton = document.createElement("img");
-  windowCloseButton.src = "/assets/images/close.png";
-  windowCloseButton.className = "error-close-button";
-  windowCloseButton.addEventListener("click", () => {
-    errorBox.remove();
-  });
   const errorImage = document.createElement("img");
-  errorImage.src = "/assets/images/error.png";
-  errorImage.className = "error-image";
   const errorMessage = document.createElement("p");
-  errorMessage.textContent = message;
   const closeButton = document.createElement("button");
-  closeButton.textContent = "OK";
-  closeButton.className = "error-button";
-  closeButton.addEventListener("click", function () {
-    errorBox.remove();
+
+  errorWindow.className = "window";
+  
+  errorWindowTitle.className = "window-title";
+  errorWindowTitle.textContent = title;
+
+  windowCloseButton.src = "/assets/images/close.png";
+  windowCloseButton.className = "window-close-button";
+  windowCloseButton.addEventListener("click", () => {
+    errorWindow.remove();
   });
-  errorBox.appendChild(errorTitle);
-  errorBox.appendChild(errorImage);
-  errorBox.appendChild(errorMessage);
-  errorTitle.appendChild(windowCloseButton);
-  errorBox.appendChild(closeButton);
-  mainContent.appendChild(errorBox);
+
+  errorImage.src = "/assets/images/error.png";
+  errorImage.className = "error-image window-image";
+
+  errorMessage.textContent = message;
+
+  closeButton.textContent = "OK";
+  closeButton.className = "error-window-ok-button btn";
+  closeButton.addEventListener("click", function () {
+    errorWindow.remove();
+  });
+
+  errorWindow.appendChild(errorWindowTitle);
+  errorWindow.appendChild(errorImage);
+  errorWindow.appendChild(errorMessage);
+  errorWindowTitle.appendChild(windowCloseButton);
+  errorWindow.appendChild(closeButton);
+  mainContent.appendChild(errorWindow);
+
   // Play error sound
-  const errorSound = new Audio("/assets/sounds/error.mp3");
   errorSound.play();
+
   // Adjust scroll position to show error box if necessary
   mainContent.scrollTop = mainContent.scrollHeight;
+
 }
 
-// Request User Permission For Fullscreen Function
-function requestFullScreen(element) {
+// Switch To Fullscreen Function
+function toggleFullScreen() {
+  clickSound.play();
   if (
     !document.fullscreenElement && // alternative standard method
     !document.mozFullScreenElement &&
@@ -138,12 +161,6 @@ function requestFullScreen(element) {
   }
 }
 
-// Switch To Fullscreen Function
-function toggleFullScreenButton() {
-  clickSound.play();
-  requestFullScreen(elem);
-}
-
 // Clear All Cameras Function
 function deleteAllCameras() {
   clearSound.play();
@@ -163,7 +180,7 @@ function deleteAllCameras() {
 function turnOff() {
   // Display a confirmation dialog
   //var confirmed = confirm("Are you sure you want to exit?");
-  showTurnOffWindow();
+  showWarningWindow("Turn Off","Are you sure you want to exit?");
 }
 
 // Save Current Displayed Cameras To Local Storage Function
@@ -199,23 +216,16 @@ function dropScreen(event) {
   const heading = document.createElement("div");
   const icon = document.createElement("i");
   const windowCloseButton = document.createElement("i");
-  const windowFullButton = document.createElement("i");
+  const windowFullScreenButton = document.createElement("i");
   const screen = document.createElement("img");
   const item = document.createElement("li");
 
   page.className = "screen-container";
-  icon.className = "fa-solid fa-video";
-  windowCloseButton.className = "fa-solid fa-square-xmark";
-  windowFullButton.className = "fa-solid fa-window-restore";
+  icon.className = "fa-solid fa-video active-camera-icon";
+  windowCloseButton.className = "fa-solid fa-square-xmark screen-close-button";
+  windowFullScreenButton.className = "fa-solid fa-window-restore window-fullscreen-button";
   screen.src = "/assets/images/screen.png";
 
-  icon.style = "color: green;";
-  windowCloseButton.style =
-    "color: red; position:absolute; margin-left:-20px; margin-top:8px; padding-right:1px; padding-left:1px; border-radius:3px;";
-  windowCloseButton.style.cursor = "pointer";
-  windowFullButton.style =
-    "color: white; background-color:transparent; position:absolute; margin-left:-45px; margin-top:8px; padding-right:1px; padding-left:1px; border-radius:3px;";
-  windowFullButton.style.cursor = "pointer";
   heading.className = "heading";
   screen.className = "screen";
 
@@ -226,7 +236,7 @@ function dropScreen(event) {
   page.appendChild(heading);
   page.appendChild(screen);
   page.appendChild(windowCloseButton);
-  page.appendChild(windowFullButton);
+  page.appendChild(windowFullScreenButton);
   mainContent.appendChild(page);
 
   windowCloseButton.addEventListener("click", () => {
@@ -235,7 +245,7 @@ function dropScreen(event) {
     saveCamerasToLocalStorage();
   });
 
-  windowFullButton.addEventListener("click", () => {
+  windowFullScreenButton.addEventListener("click", () => {
     if (page.classList.contains("fullScreen")) {
       page.classList.remove("fullScreen");
       page.style = ""; // Remove inline styles
@@ -277,20 +287,13 @@ savedCameras.forEach((camera) => {
   const heading = document.createElement("div");
   const icon = document.createElement("i");
   const windowCloseButton = document.createElement("i");
-  const windowFullButton = document.createElement("i");
+  const windowFullScreenButton = document.createElement("i");
   const item = document.createElement("li");
   const photo = document.createElement("img");
   page.className = "screen-container";
-  icon.style = "color: green;";
-  icon.className = "fa-solid fa-video";
-  windowCloseButton.className = "fa-solid fa-square-xmark";
-  windowCloseButton.style =
-    "color: red; position:absolute; margin-left:-20px; margin-top:8px; padding-right:1px; padding-left:1px; border-radius:3px;";
-  windowCloseButton.style.cursor = "pointer";
-  windowFullButton.className = "fa-solid fa-window-restore";
-  windowFullButton.style =
-    "color: white; background-color:transparent; position:absolute; margin-left:-45px; margin-top:8px; padding-right:1px; padding-left:1px; border-radius:3px;";
-  windowFullButton.style.cursor = "pointer";
+  icon.className = "fa-solid fa-video active-camera-icon";
+  windowCloseButton.className = "fa-solid fa-square-xmark screen-close-button";
+  windowFullScreenButton.className = "fa-solid fa-window-restore window-fullscreen-button";
   photo.src = "/assets/images/screen.png";
   photo.className = "photo";
   heading.className = "heading";
@@ -299,7 +302,7 @@ savedCameras.forEach((camera) => {
   list.appendChild(item);
   page.appendChild(heading);
   page.appendChild(photo);
-  page.appendChild(windowFullButton);
+  page.appendChild(windowFullScreenButton);
   page.appendChild(windowCloseButton);
   mainContent.appendChild(page);
   windowCloseButton.addEventListener("click", () => {
@@ -307,7 +310,7 @@ savedCameras.forEach((camera) => {
     list.removeChild(item);
     saveCamerasToLocalStorage(); // Update local storage after removing
   });
-  windowFullButton.addEventListener("click", () => {
+  windowFullScreenButton.addEventListener("click", () => {
     if (page.classList.contains("fullScreen")) {
       page.classList.remove("fullScreen");
       page.style = ""; // Remove inline styles
@@ -335,21 +338,14 @@ function addScreen(pageContent) {
   const heading = document.createElement("div");
   const icon = document.createElement("i");
   const windowCloseButton = document.createElement("i");
-  const windowFullButton = document.createElement("i");
+  const windowFullScreenButton = document.createElement("i");
   const screen = document.createElement("img");
   const item = document.createElement("li");
   page.className = "screen-container";
-  icon.className = "fa-solid fa-video";
-  windowCloseButton.className = "fa-solid fa-square-xmark";
-  windowFullButton.className = "fa-solid fa-window-restore";
+  icon.className = "fa-solid fa-video active-camera-icon";
+  windowCloseButton.className = "fa-solid fa-square-xmark screen-close-button";
+  windowFullScreenButton.className = "fa-solid fa-window-restore window-fullscreen-button";
   screen.src = "/assets/images/screen.png";
-  icon.style = "color: green;";
-  windowCloseButton.style =
-    "color: red; position:absolute; margin-left:-20px; margin-top:8px; padding-right:1px; padding-left:1px; border-radius:3px;";
-  windowCloseButton.style.cursor = "pointer";
-  windowFullButton.style =
-    "color: white; background-color:transparent; position:absolute; margin-left:-45px; margin-top:8px; padding-right:1px; padding-left:1px; border-radius:3px;";
-  windowFullButton.style.cursor = "pointer";
   heading.className = "heading";
   screen.className = "screen";
   item.textContent = heading.innerText = pageContent;
@@ -358,15 +354,15 @@ function addScreen(pageContent) {
   page.appendChild(heading);
   page.appendChild(screen);
   page.appendChild(windowCloseButton);
-  page.appendChild(windowFullButton);
+  page.appendChild(windowFullScreenButton);
   mainContent.appendChild(page);
-  // Add event listeners for windowCloseButton and windowFullButton
+  // Add event listeners for windowCloseButton and windowFullScreenButton
   windowCloseButton.addEventListener("click", () => {
     page.remove();
     list.removeChild(item);
     saveCamerasToLocalStorage();
   });
-  windowFullButton.addEventListener("click", () => {
+  windowFullScreenButton.addEventListener("click", () => {
     if (page.classList.contains("fullScreen")) {
       page.classList.remove("fullScreen");
       page.style = ""; // Remove inline styles
