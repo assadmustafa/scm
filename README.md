@@ -1,4 +1,4 @@
-# Security Camera's Monitoring
+# Security Camera's Monitor
 
 ![App Screenshot](screenshots/screenshot_01.png)
 
