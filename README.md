@@ -1,6 +1,6 @@
 # Security Camera's Monitoring
 
-![App Screenshot](preview_02.png)
+![App Screenshot](screenshots/screenshot_01.png)
 
 ## Introduction
 The SCM App is a simple web application that allows users to drag and drop camera elements to create a list of their favorite cameras. Users can add cameras to the list by dragging them from a selection of available cameras onto the drop area. 
