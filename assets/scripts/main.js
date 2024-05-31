@@ -24,12 +24,11 @@ var elem = document.body;
 function toggleFullScreen() {
   clickSound.play();
   if (
-    !document.fullscreenElement && // alternative standard method
+    !document.fullscreenElement &&
     !document.mozFullScreenElement &&
     !document.webkitFullscreenElement &&
     !document.msFullscreenElement
   ) {
-    // current working methods
     if (elem.requestFullscreen) {
       elem.requestFullscreen();
     } else if (elem.msRequestFullscreen) {
@@ -166,9 +165,9 @@ function dropScreen(event) {
   windowFullScreenButton.className = "fa-solid fa-window-restore screen-fullscreen-button";
   screen.src = `/assets/cameras/camera${randomCameraNumber}.mp4`;
   screen.autoplay = true;
-  screen.loop = true; // Set loop
-  screen.muted = true; // Add this line if necessary
-  screen.controls = false; // Add this line if controls are not needed
+  screen.loop = true; // Set loop for the videos
+  screen.muted = true; // Mute the videos audio
+  screen.controls = false; // Disable video controls
   heading.className = "heading";
   screen.className = "screen";
 
@@ -235,9 +234,9 @@ function addScreen(pageContent) {
   windowFullScreenButton.className = "fa-solid fa-window-restore screen-fullscreen-button";
   screen.src = `/assets/cameras/camera${randomCameraNumber}.mp4`;
   screen.autoplay = true;
-  screen.loop = true; // Set loop
-  screen.muted = true; // Add this line if necessary
-  screen.controls = false; // Add this line if controls are not needed
+  screen.loop = true; // Set loop for the videos
+  screen.muted = true; // Mute the videos audio
+  screen.controls = false; // Disable video controls
   heading.className = "heading";
   screen.className = "screen";
   item.textContent = heading.innerText = pageContent;
@@ -353,9 +352,9 @@ savedCameras.forEach((camera) => {
   screen.src = `/assets/cameras/camera${randomCameraNumber}.mp4`;
   screen.className = "screen";
   screen.autoplay = true;
-  screen.loop = true; // Set loop
-  screen.muted = true; // Add this line if necessary
-  screen.controls = false; // Add this line if controls are not needed
+  screen.loop = true; // Set loop for the videos
+  screen.muted = true; // Mute the videos audio
+  screen.controls = false; // Disable videos controls
   heading.className = "heading";
   item.textContent = heading.innerText = camera;
   item.insertBefore(icon, item.firstChild);
